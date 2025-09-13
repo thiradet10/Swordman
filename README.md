@@ -44,4 +44,3 @@
 | บาดเจ็บ (Hurt + ลดเลือด) | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c3815ec3-a00c-4887-8a92-27af7200a1c3" />|
 | ตาย + Game Over | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/76da6d4e-02b5-4f5a-9fb5-b7b93f01067c" />|
 
-#นาย ธีรเดช ประสารสุข 673450195-4 CIS
