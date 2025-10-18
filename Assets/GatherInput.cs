@@ -7,6 +7,7 @@ public class GatherInput : MonoBehaviour
     private Controls myControl;
     public float valueX;
     public bool jumpInput;
+    public bool tryAttack;
 
     public void Awake()
     {
@@ -21,6 +22,11 @@ public class GatherInput : MonoBehaviour
         myControl.Player.Jump.performed += JumpStart;
         myControl.Player.Jump.canceled += JumpStop;
         myControl.Player.Enable();
+
+        myControl.Player.Attack.performed += TryToAttach;
+        myControl.Player.Attack.canceled += StopTryToAttack;
+        myControl.Player.Enable();
+
     }
     private void OnDisable()
     {
@@ -32,6 +38,11 @@ public class GatherInput : MonoBehaviour
         myControl.Player.Jump.performed -= JumpStart;
         myControl.Player.Jump.canceled -= JumpStop;
         myControl.Player.Disable();
+
+        myControl.Player.Attack.performed -= TryToAttach;
+        myControl.Player.Attack.canceled -= StopTryToAttack;
+        myControl.Player.Disable();
+        valueX = 0;
     }
     private void StartMove(InputAction.CallbackContext ctx)
     {
@@ -59,5 +70,13 @@ public class GatherInput : MonoBehaviour
 
         myControl.Player.Disable();
         valueX = 0;
+    }
+    private void TryToAttach(InputAction.CallbackContext ctx)
+    {
+        tryAttack = true;
+    }
+    private void StopTryToAttack(InputAction.CallbackContext ctx)
+    {
+        tryAttack = false;
     }
 }

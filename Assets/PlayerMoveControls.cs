@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMoveControls : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerMoveControls : MonoBehaviour
     public LayerMask groundLayer;
     public Transform leftPoint;
     private bool grounded = false;
+    private bool knockBack = false;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class PlayerMoveControls : MonoBehaviour
         Flip();
         JumpPlayer();
         CheckStatus();
+        if(knockBack) return;
     }
 
     private void Move()
@@ -68,4 +71,26 @@ public class PlayerMoveControls : MonoBehaviour
         RaycastHit2D leftCheckHit = Physics2D.Raycast(leftPoint.position, Vector2.down, rayLength, groundLayer);
         grounded = leftCheckHit;
     }
+    public IEnumerator KnockBack(float forceX, float forceY, float duration, Transform otherObject)
+    {
+        int knockBackDirection;
+        if (transform.position.x < otherObject.position.x)
+        {
+            knockBackDirection = -1;
+        }
+        else
+        {
+            knockBackDirection = 1;
+        }
+
+        knockBack = true;
+        rigidbody2D.velocity = Vector2.zero;
+        Vector2 theForce = new Vector2(forceX * knockBackDirection, forceY);
+        rigidbody2D.AddForce(theForce, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(duration);
+        knockBack = false;
+        rigidbody2D.velocity = Vector2.zero;
+    }
+
 }
